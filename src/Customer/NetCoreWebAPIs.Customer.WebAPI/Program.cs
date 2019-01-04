@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace NetCoreWebAPIs.API.CustomerAPI
+namespace NetCoreWebAPIs.Customer.WebAPI
 {
     public class Program
     {

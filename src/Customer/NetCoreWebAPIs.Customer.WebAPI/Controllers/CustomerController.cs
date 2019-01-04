@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NetCoreWebAPIs.Core.Data;
-using NetCoreWebAPIs.Core.Service;
 
-namespace NetCoreWebAPIs.API.CustomerAPI.Controllers
+namespace NetCoreWebAPIs.Customer.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

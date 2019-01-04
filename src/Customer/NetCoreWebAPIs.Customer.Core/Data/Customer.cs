@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetCoreWebAPIs.Core.Data
+namespace NetCoreWebAPIs.Customer.Core.Data
 {
     [Table(nameof(Customer))]
     public class Customer

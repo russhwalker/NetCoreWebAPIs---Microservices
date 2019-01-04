@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetCoreWebAPIs.Core.Service
+namespace NetCoreWebAPIs.Customer.Core.Service
 {
     public interface ICustomerService
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetCoreWebAPIs.Core.Models
+namespace NetCoreWebAPIs.Customer.Core.Models
 {
     public class User
     {

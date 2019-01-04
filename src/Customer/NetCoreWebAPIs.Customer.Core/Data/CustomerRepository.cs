@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetCoreWebAPIs.Core.Data
+namespace NetCoreWebAPIs.Customer.Core.Data
 {
     public class CustomerRepository : ICustomerRepository
     {
