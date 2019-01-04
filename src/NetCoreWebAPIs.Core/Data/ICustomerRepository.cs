@@ -8,6 +8,9 @@ namespace NetCoreWebAPIs.Core.Data
 {
     public interface ICustomerRepository
     {
-        
+        Customer Get(int customerId);
+        List<Customer> Get();
+        Customer Save(Customer customer);
+        bool Delete(int customerId);
     }
 }

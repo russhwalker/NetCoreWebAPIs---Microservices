@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace NetCoreWebAPIs.Core.Data
 {
-    [Table("Person")]
+    [Table(nameof(Customer))]
     public class Customer
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerId { get; set; }
 
         public int CustomerName { get; set; }
+
+        public DateTime CreateDate { get; set; }
     }
 }
