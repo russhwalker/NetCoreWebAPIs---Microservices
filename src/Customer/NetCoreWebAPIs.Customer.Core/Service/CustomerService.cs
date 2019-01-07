@@ -1,4 +1,4 @@
-﻿using NetCoreWebAPIs.Core.Data;
+﻿using NetCoreWebAPIs.Customer.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +16,17 @@ namespace NetCoreWebAPIs.Customer.Core.Service
             this.customerRepository = customerRepository;
         }
 
-        public Customer GetCustomer(int customerId)
+        public Data.Customer GetCustomer(int customerId)
         {
             return customerRepository.Get(customerId);
         }
 
-        public List<Customer> GetCustomers()
+        public List<Data.Customer> GetCustomers()
         {
             return customerRepository.Get();
         }
 
-        public Customer SaveCustomer(Customer customer)
+        public Data.Customer SaveCustomer(Data.Customer customer)
         {
             return customerRepository.Save(customer);
         }

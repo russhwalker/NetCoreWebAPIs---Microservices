@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NetCoreWebAPIs.Customer.Core.Service;
 
 namespace NetCoreWebAPIs.Customer.WebAPI.Controllers
 {
@@ -18,19 +19,19 @@ namespace NetCoreWebAPIs.Customer.WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Customer>> Get()
+        public ActionResult<IEnumerable<Core.Data.Customer>> Get()
         {
             return customerService.GetCustomers();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Customer> Get(int id)
+        public ActionResult<Core.Data.Customer> Get(int id)
         {
             return customerService.GetCustomer(id);
         }
 
         [HttpPost]
-        public Customer Post([FromBody] Customer customer)
+        public Core.Data.Customer Post([FromBody] Core.Data.Customer customer)
         {
             return customerService.SaveCustomer(customer);
         }

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebAPIs.Customer.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebAPIs.Customer.Core", "Customer\NetCoreWebAPIs.Customer.Core\NetCoreWebAPIs.Customer.Core.csproj", "{9D4A6DE5-2B50-4A43-95E6-85A8BB7074AC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{584A373D-C46E-4374-A639-170A2AECBBF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
