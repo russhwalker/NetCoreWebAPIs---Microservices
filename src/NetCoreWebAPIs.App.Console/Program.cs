@@ -15,8 +15,9 @@ namespace NetCoreWebAPIs.App.Console
                 userName = "uuuu",
                 password = "ppppp"
             };
-            var token = caller.Post<JwtSecurityToken>("https://localhost:44360/api/Auth", obj);
-            //var result = caller.PostAsync<string>("https://localhost:44360/api/Auth", obj).Result;
+            //var authResult = caller.Post<Core.Models.AuthResult>("https://localhost:44360/api/Auth", obj);
+            var authResult = caller.PostAsync<Core.Models.AuthResult>("https://localhost:44360/api/Auth", obj).Result;
+            var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(authResult.TokenContent);
         }
     }
 }

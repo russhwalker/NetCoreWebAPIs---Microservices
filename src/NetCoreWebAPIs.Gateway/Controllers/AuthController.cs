@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using NetCoreWebAPIs.Gateway.Requests;
 
 namespace NetCoreWebAPIs.Gateway.Controllers
 {
@@ -14,24 +15,29 @@ namespace NetCoreWebAPIs.Gateway.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+
         [HttpPost]
-        public string Post(string userName = "", string password = "")
+        public Core.Models.AuthResult Post([FromBody]AuthenticationRequest authRequest)
         {
+            //TODO authenticate
+
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, userName)
+                new Claim(ClaimTypes.Name, authRequest.UserName)
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("abacawefwfasdfsd"));
             var token = new JwtSecurityToken(
-                issuer: "netcorewebapisSite.com",
-                audience: "netcorewebapisSite.com",
+                issuer: "mytestsite.com",
+                audience: "mytestsite.com",
                 expires: DateTime.Now.AddSeconds(5),
                 claims: claims,
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
                 );
-            var x = new JwtSecurityTokenHandler();
-            return x.WriteToken(token);
-            //return $"u:{userName};p:{password}";
+            return new Core.Models.AuthResult
+            {
+                Authenticated = true,
+                TokenContent = new JwtSecurityTokenHandler().WriteToken(token)
+            };
         }
     }
 }
