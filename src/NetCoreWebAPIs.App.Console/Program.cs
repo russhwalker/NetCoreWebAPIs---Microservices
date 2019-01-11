@@ -7,7 +7,6 @@ namespace NetCoreWebAPIs.App.Console
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
 
             var caller = new Core.APICaller();
             var obj = new
@@ -17,7 +16,14 @@ namespace NetCoreWebAPIs.App.Console
             };
             //var authResult = caller.Post<Core.Models.AuthResult>("https://localhost:44360/api/Auth", obj);
             var authResult = caller.PostAsync<Core.Models.AuthResult>("https://localhost:44360/api/Auth", obj).Result;
+            if (!authResult.Authenticated)
+            {
+                System.Console.WriteLine("Authentication Failed.");
+                return;
+            }
             var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(authResult.TokenContent);
+            System.Console.WriteLine("Authentication Success.");
+            System.Console.WriteLine($"Valid: {jwtToken.ValidFrom} -- {jwtToken.ValidTo}");
         }
     }
 }

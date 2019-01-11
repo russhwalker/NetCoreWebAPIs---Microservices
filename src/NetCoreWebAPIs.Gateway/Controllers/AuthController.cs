@@ -29,7 +29,7 @@ namespace NetCoreWebAPIs.Gateway.Controllers
             var token = new JwtSecurityToken(
                 issuer: "mytestsite.com",
                 audience: "mytestsite.com",
-                expires: DateTime.Now.AddSeconds(5),
+                expires: DateTime.Now,
                 claims: claims,
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
                 );
