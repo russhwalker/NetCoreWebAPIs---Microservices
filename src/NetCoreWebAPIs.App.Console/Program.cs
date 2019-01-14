@@ -14,7 +14,7 @@ namespace NetCoreWebAPIs.App.Console
                 userName = "uuuu",
                 password = "ppppp"
             };
-            //var authResult = caller.Post<Core.Models.AuthResult>("https://localhost:44360/api/Auth", obj);
+
             var authResult = caller.PostAsync<Core.Models.AuthResult>("https://localhost:44360/api/Auth", obj).Result;
             if (!authResult.Authenticated)
             {

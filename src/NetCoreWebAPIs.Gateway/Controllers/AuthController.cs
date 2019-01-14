@@ -5,7 +5,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NetCoreWebAPIs.Gateway.Requests;
 
@@ -15,8 +17,15 @@ namespace NetCoreWebAPIs.Gateway.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IConfiguration configuration;
+
+        public AuthController(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
 
         [HttpPost]
+        [AllowAnonymous]
         public Core.Models.AuthResult Post([FromBody]AuthenticationRequest authRequest)
         {
             //TODO authenticate
@@ -25,11 +34,11 @@ namespace NetCoreWebAPIs.Gateway.Controllers
             {
                 new Claim(ClaimTypes.Name, authRequest.UserName)
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("abacawefwfasdfsd"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
             var token = new JwtSecurityToken(
-                issuer: "mytestsite.com",
-                audience: "mytestsite.com",
-                expires: DateTime.Now,
+                issuer: configuration["Tokens:Issuer"],
+                audience: configuration["Tokens:Issuer"],
+                expires: DateTime.Now.AddSeconds(10),
                 claims: claims,
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
                 );
