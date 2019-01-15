@@ -8,22 +8,24 @@ namespace NetCoreWebAPIs.App.Console
         static void Main(string[] args)
         {
 
-            var caller = new Core.APICaller();
-            var obj = new
+            var authRequest = new Core.Requests.AuthRequest
             {
-                userName = "uuuu",
-                password = "ppppp"
+                UserName = "uuuu",
+                Password = "ppppp"
             };
+            var caller = new Core.APICaller();
+            var authResponse = caller.PostAsync<Core.Responses.AuthResponse>("https://localhost:44360/api/Auth", authRequest).Result;
 
-            var authResult = caller.PostAsync<Core.Models.AuthResult>("https://localhost:44360/api/Auth", obj).Result;
-            if (!authResult.Authenticated)
+            if (!authResponse.Authenticated)
             {
                 System.Console.WriteLine("Authentication Failed.");
                 return;
             }
-            var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(authResult.TokenContent);
+            var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(authResponse.TokenContent);
             System.Console.WriteLine("Authentication Success.");
             System.Console.WriteLine($"Valid: {jwtToken.ValidFrom} -- {jwtToken.ValidTo}");
+
+            var testResponse = caller.GetAsync<Core.Responses.TestResponse>("https://localhost:44360/api/Customer", authResponse.TokenContent).Result;
         }
     }
 }

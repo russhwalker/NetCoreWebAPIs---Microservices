@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,14 +20,17 @@ namespace NetCoreWebAPIs.Core
             }
         }
 
-        public T Post<T>(string apiUrl, object messageValue)
+        public async Task<T> GetAsync<T>(string apiUrl, string token = "")
         {
             using (var client = new HttpClient())
             {
-                var messageJSON = JsonConvert.SerializeObject(messageValue);
-                var content = new StringContent(messageJSON, Encoding.UTF8, "application/json");
-                var response = client.PostAsync(apiUrl, content).Result.Content.ReadAsStringAsync().Result;
-                return JsonConvert.DeserializeObject<T>(response);
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                }
+                client.DefaultRequestHeaders.Add("Get", "application/json");
+                var json = await client.GetStringAsync(apiUrl);
+                return JsonConvert.DeserializeObject<T>(json);
             }
         }
     }

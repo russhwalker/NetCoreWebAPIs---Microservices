@@ -5,17 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetCoreWebAPIs.Core.Responses;
 
 namespace NetCoreWebAPIs.Gateway.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class TestController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        public string Get()
+        [HttpGet]
+        public ActionResult<TestResponse> Get()
         {
-            return "got here";
+            return new TestResponse
+            {
+                Something = "test"
+            };
         }
     }
 }

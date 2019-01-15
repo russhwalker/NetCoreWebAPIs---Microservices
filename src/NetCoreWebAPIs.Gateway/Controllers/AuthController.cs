@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using NetCoreWebAPIs.Gateway.Requests;
+using NetCoreWebAPIs.Core.Requests;
+using NetCoreWebAPIs.Core.Responses;
 
 namespace NetCoreWebAPIs.Gateway.Controllers
 {
@@ -26,27 +27,17 @@ namespace NetCoreWebAPIs.Gateway.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public Core.Models.AuthResult Post([FromBody]AuthenticationRequest authRequest)
+        public async Task<AuthResponse> Post([FromBody]AuthRequest authRequest)
         {
-            //TODO authenticate
+            var response = await new Core.APICaller().PostAsync<AuthResponse>(configuration["ApiUrls:User"], authRequest);
 
-            var claims = new List<Claim>
+            if (!response.Authenticated)
             {
-                new Claim(ClaimTypes.Name, authRequest.UserName)
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
-            var token = new JwtSecurityToken(
-                issuer: configuration["Tokens:Issuer"],
-                audience: configuration["Tokens:Issuer"],
-                expires: DateTime.Now.AddSeconds(10),
-                claims: claims,
-                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
-                );
-            return new Core.Models.AuthResult
-            {
-                Authenticated = true,
-                TokenContent = new JwtSecurityTokenHandler().WriteToken(token)
-            };
+                return response;
+            }
+
+            response.TokenContent = JWTHelper.Create(configuration, authRequest.UserName);
+            return response;
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetCoreWebAPIs.Core.Models
+namespace NetCoreWebAPIs.Core.Responses
 {
-    public class AuthResult
+    public class AuthResponse
     {
         public bool Authenticated { get; set; }
         public string TokenContent { get; set; }

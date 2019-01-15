@@ -1,6 +1,6 @@
-﻿namespace NetCoreWebAPIs.Gateway.Requests
+﻿namespace NetCoreWebAPIs.Core.Requests
 {
-    public class AuthenticationRequest
+    public class AuthRequest
     {
         public string UserName { get; set; }
         public string Password { get; set; }
