@@ -16,6 +16,7 @@ namespace NetCoreWebAPIs.Gateway.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration configuration;

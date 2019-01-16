@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace NetCoreWebAPIs.App.Console
@@ -25,7 +26,9 @@ namespace NetCoreWebAPIs.App.Console
             System.Console.WriteLine("Authentication Success.");
             System.Console.WriteLine($"Valid: {jwtToken.ValidFrom} -- {jwtToken.ValidTo}");
 
+            System.Console.WriteLine("--------Customer--------");
             var testResponse = caller.GetAsync<Core.Responses.TestResponse>("https://localhost:44360/api/Customer", authResponse.TokenContent).Result;
+            System.Console.WriteLine(JsonConvert.SerializeObject(testResponse));
         }
     }
 }

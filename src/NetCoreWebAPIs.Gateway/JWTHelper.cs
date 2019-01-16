@@ -21,8 +21,9 @@ namespace NetCoreWebAPIs.Gateway
             var token = new JwtSecurityToken(
                issuer: configuration["Tokens:Issuer"],
                audience: configuration["Tokens:Issuer"],
-               expires: DateTime.Now.AddSeconds(10),
                claims: claims,
+               notBefore: DateTime.Now.ToUniversalTime(),
+               expires: DateTime.Now.AddSeconds(10).ToUniversalTime(),
                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
