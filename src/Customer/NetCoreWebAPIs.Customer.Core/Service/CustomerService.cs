@@ -21,14 +21,28 @@ namespace NetCoreWebAPIs.Customer.Core.Service
             return customerRepository.Get(customerId);
         }
 
-        public List<Data.Customer> GetCustomers()
+        public List<NetCoreWebAPIs.Core.Models.Customer> GetCustomers()
         {
-            return customerRepository.Get();
+            return customerRepository.Get()
+                .Select(c => new NetCoreWebAPIs.Core.Models.Customer
+                {
+                    CustomerId = c.CustomerId,
+                    CustomerName = c.CustomerName
+                }).ToList();
         }
 
-        public Data.Customer SaveCustomer(Data.Customer customer)
+        public NetCoreWebAPIs.Core.Models.Customer SaveCustomer(NetCoreWebAPIs.Core.Models.Customer customer)
         {
-            return customerRepository.Save(customer);
+            //TODO fix this manual mess.
+            var entity = new Data.Customer
+            {
+                CustomerId = customer.CustomerId,
+                CustomerName = customer.CustomerName,
+                UpdateDate = DateTime.Now
+            };
+            customerRepository.Save(entity);
+            customer.CustomerId = entity.CustomerId;
+            return customer;
         }
 
         public bool DeleteCustomer(int customerId)

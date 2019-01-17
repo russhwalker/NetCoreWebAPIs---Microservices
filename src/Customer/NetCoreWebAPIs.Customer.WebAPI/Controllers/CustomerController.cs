@@ -19,9 +19,13 @@ namespace NetCoreWebAPIs.Customer.WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Core.Data.Customer>> Get()
+        public ActionResult<NetCoreWebAPIs.Core.Responses.CustomersResponse> Get()
         {
-            return customerService.GetCustomers();
+            var customers = customerService.GetCustomers();
+            return new NetCoreWebAPIs.Core.Responses.CustomersResponse
+            {
+                Customers = customers
+            };
         }
 
         [HttpGet("{id}")]
@@ -31,7 +35,7 @@ namespace NetCoreWebAPIs.Customer.WebAPI.Controllers
         }
 
         [HttpPost]
-        public Core.Data.Customer Post([FromBody] Core.Data.Customer customer)
+        public NetCoreWebAPIs.Core.Models.Customer Post([FromBody] NetCoreWebAPIs.Core.Models.Customer customer)
         {
             return customerService.SaveCustomer(customer);
         }

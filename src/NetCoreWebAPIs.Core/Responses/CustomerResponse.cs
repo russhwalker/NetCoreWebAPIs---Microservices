@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace NetCoreWebAPIs.Core.Responses
 {
-    public class TestResponse
+    public class CustomerResponse
     {
-        public string Something { get; set; }
+        public Models.Customer Customer { get; set; }
     }
 }

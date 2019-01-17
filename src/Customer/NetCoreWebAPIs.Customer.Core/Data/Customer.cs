@@ -14,8 +14,8 @@ namespace NetCoreWebAPIs.Customer.Core.Data
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerId { get; set; }
 
-        public int CustomerName { get; set; }
+        public string CustomerName { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime UpdateDate { get; set; }
     }
 }

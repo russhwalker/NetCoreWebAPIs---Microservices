@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using NetCoreWebAPIs.Core.Responses;
 
 namespace NetCoreWebAPIs.Gateway.Controllers
@@ -14,13 +15,26 @@ namespace NetCoreWebAPIs.Gateway.Controllers
     [Authorize]
     public class CustomerController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<TestResponse> Get()
+        private readonly IConfiguration configuration;
+        private readonly Core.APICaller caller;
+
+        public CustomerController(IConfiguration configuration)
         {
-            return new TestResponse
-            {
-                Something = "test"
-            };
+            this.configuration = configuration;
+            caller = new Core.APICaller();
+        }
+
+        [HttpGet]
+        public ActionResult<CustomersResponse> Get()
+        {
+            return caller.GetAsync<CustomersResponse>(configuration["ApiUrls:Customer"]).Result;
+        }
+
+        [HttpPost]
+        public Core.Models.Customer Post([FromBody] Core.Models.Customer customer)
+        {
+            var asdf = caller.PostAsync<Core.Models.Customer>(configuration["ApiUrls:Customer"], customer).Result;
+            return caller.PostAsync<Core.Models.Customer>(configuration["ApiUrls:Customer"], customer).Result;
         }
     }
 }

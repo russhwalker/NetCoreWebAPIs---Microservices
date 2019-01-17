@@ -8,14 +8,18 @@ namespace NetCoreWebAPIs.App.Console
     {
         static void Main(string[] args)
         {
+            string createUrl(string relativeUrl)
+            {
+                return System.IO.Path.Combine("https://localhost:44360/api/", relativeUrl);
+            }
 
             var authRequest = new Core.Requests.AuthRequest
             {
-                UserName = "uuuu",
-                Password = "ppppp"
+                UserName = "DoeJohn1",
+                Password = "abc123"
             };
             var caller = new Core.APICaller();
-            var authResponse = caller.PostAsync<Core.Responses.AuthResponse>("https://localhost:44360/api/Auth", authRequest).Result;
+            var authResponse = caller.PostAsync<Core.Responses.AuthResponse>(createUrl("Auth"), authRequest).Result;
 
             if (!authResponse.Authenticated)
             {
@@ -27,8 +31,9 @@ namespace NetCoreWebAPIs.App.Console
             System.Console.WriteLine($"Valid: {jwtToken.ValidFrom} -- {jwtToken.ValidTo}");
 
             System.Console.WriteLine("--------Customer--------");
-            var testResponse = caller.GetAsync<Core.Responses.TestResponse>("https://localhost:44360/api/Customer", authResponse.TokenContent).Result;
-            System.Console.WriteLine(JsonConvert.SerializeObject(testResponse));
+            var cust1 = caller.PostAsync<Core.Models.Customer>(createUrl("Customer"), new Core.Models.Customer { CustomerName = "Some Guy" }).Result;
+            var getCustomersResponse = caller.GetAsync<Core.Responses.CustomersResponse>(createUrl("Customer"), authResponse.TokenContent).Result;
+            System.Console.WriteLine(JsonConvert.SerializeObject(getCustomersResponse));
         }
     }
 }

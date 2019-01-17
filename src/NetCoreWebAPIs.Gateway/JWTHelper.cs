@@ -18,12 +18,13 @@ namespace NetCoreWebAPIs.Gateway
                 new Claim(ClaimTypes.Name, userName)
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
+            var seconds = int.Parse(configuration["Tokens:ExpiresFutureSeconds"]);
             var token = new JwtSecurityToken(
                issuer: configuration["Tokens:Issuer"],
                audience: configuration["Tokens:Issuer"],
                claims: claims,
                notBefore: DateTime.Now.ToUniversalTime(),
-               expires: DateTime.Now.AddSeconds(10).ToUniversalTime(),
+               expires: DateTime.Now.AddSeconds(seconds).ToUniversalTime(),
                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
