@@ -4,12 +4,10 @@ using System.Text;
 
 namespace NetCoreWebAPIs.Core.Models
 {
-    public class Customer
+    public class Order
     {
+        public int OrderId { get; set; }
         public int CustomerId { get; set; }
-
-        public string CustomerName { get; set; }
-
-        public List<Order> Orders { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

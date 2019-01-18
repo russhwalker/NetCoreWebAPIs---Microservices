@@ -16,9 +16,14 @@ namespace NetCoreWebAPIs.Customer.Core.Service
             this.customerRepository = customerRepository;
         }
 
-        public Data.Customer GetCustomer(int customerId)
+        public NetCoreWebAPIs.Core.Models.Customer GetCustomer(int customerId)
         {
-            return customerRepository.Get(customerId);
+            var customer = customerRepository.Get(customerId);
+            return new NetCoreWebAPIs.Core.Models.Customer
+            {
+                CustomerId = customer.CustomerId,
+                CustomerName = customer.CustomerName
+            };
         }
 
         public List<NetCoreWebAPIs.Core.Models.Customer> GetCustomers()

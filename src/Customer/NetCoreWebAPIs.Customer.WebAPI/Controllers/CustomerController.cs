@@ -19,17 +19,13 @@ namespace NetCoreWebAPIs.Customer.WebAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<NetCoreWebAPIs.Core.Responses.CustomersResponse> Get()
+        public ActionResult<IEnumerable<NetCoreWebAPIs.Core.Models.Customer>> Get()
         {
-            var customers = customerService.GetCustomers();
-            return new NetCoreWebAPIs.Core.Responses.CustomersResponse
-            {
-                Customers = customers
-            };
+            return customerService.GetCustomers();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Core.Data.Customer> Get(int id)
+        public ActionResult<NetCoreWebAPIs.Core.Models.Customer> Get(int id)
         {
             return customerService.GetCustomer(id);
         }

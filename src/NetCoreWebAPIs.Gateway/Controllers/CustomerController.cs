@@ -25,15 +25,23 @@ namespace NetCoreWebAPIs.Gateway.Controllers
         }
 
         [HttpGet]
-        public ActionResult<CustomersResponse> Get()
+        public IEnumerable<Core.Models.Customer> Get()
         {
-            return caller.GetAsync<CustomersResponse>(configuration["ApiUrls:Customer"]).Result;
+            return caller.GetAsync<IEnumerable<Core.Models.Customer>>(configuration["ApiUrls:Customer"]).Result;
+        }
+
+        [HttpGet]
+        [Route("GetDetails/{id}")]
+        public Core.Models.Customer GetDetails(int id)
+        {
+            var customer = caller.GetAsync<Core.Models.Customer>($"{configuration["ApiUrls:Customer"]}/{id}").Result;
+            var orders = caller.GetAsync<IEnumerable<Core.Models.Order>>($"{configuration["ApiUrls:Orders"]}/{id}").Result;
+            return customer;
         }
 
         [HttpPost]
         public Core.Models.Customer Post([FromBody] Core.Models.Customer customer)
         {
-            var asdf = caller.PostAsync<Core.Models.Customer>(configuration["ApiUrls:Customer"], customer).Result;
             return caller.PostAsync<Core.Models.Customer>(configuration["ApiUrls:Customer"], customer).Result;
         }
     }

@@ -6,13 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace NetCoreWebAPIs.Customer.WebAPI
+namespace NetCoreWebAPIs.Order.WebAPI
 {
     public class Startup
     {
@@ -26,13 +25,6 @@ namespace NetCoreWebAPIs.Customer.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Core.Data.BusinessContext>(opt => opt.UseInMemoryDatabase("Business"));
-
-            services.AddTransient<Core.Data.ICustomerRepository, Core.Data.CustomerRepository>();
-            services.AddTransient<Core.Service.ICustomerService, Core.Service.CustomerService>();
-            services.AddTransient<Core.Data.IAddressRepository, Core.Data.AddressRepository>();
-            services.AddTransient<Core.Service.IAddressService, Core.Service.AddressService>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

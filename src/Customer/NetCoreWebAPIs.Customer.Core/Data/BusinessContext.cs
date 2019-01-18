@@ -13,5 +13,6 @@ namespace NetCoreWebAPIs.Customer.Core.Data
         }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Address> Addresses { get; set; }
     }
 }

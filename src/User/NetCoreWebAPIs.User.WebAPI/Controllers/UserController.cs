@@ -13,7 +13,7 @@ namespace NetCoreWebAPIs.User.WebAPI.Controllers
         [HttpPost]
         public Core.Responses.AuthResponse Post([FromBody] Core.Requests.AuthRequest request)
         {
-
+            //TODO user auth
             return new Core.Responses.AuthResponse
             {
                 Authenticated = true

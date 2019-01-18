@@ -8,16 +8,22 @@ using System.Threading.Tasks;
 
 namespace NetCoreWebAPIs.Customer.Core.Data
 {
-    [Table(nameof(Customer))]
-    public class Customer
+    [Table(nameof(Address))]
+    public class Address
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AddressId { get; set; }
+
         public int CustomerId { get; set; }
 
-        public string CustomerName { get; set; }
+        public string Street { get; set; }
 
-        public DateTime UpdateDate { get; set; }
+        public string City { get; set; }
 
-        public virtual IEnumerable<Address> Addresses { get; set; }
+        public string State { get; set; }
+
+        public string Zip { get; set; }
+
+        public virtual Customer Customer { get; set; }
     }
 }

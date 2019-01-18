@@ -8,7 +8,7 @@ namespace NetCoreWebAPIs.Customer.Core.Service
 {
     public interface ICustomerService
     {
-        Data.Customer GetCustomer(int customerId);
+        NetCoreWebAPIs.Core.Models.Customer GetCustomer(int customerId);
         List<NetCoreWebAPIs.Core.Models.Customer> GetCustomers();
         NetCoreWebAPIs.Core.Models.Customer SaveCustomer(NetCoreWebAPIs.Core.Models.Customer customer);
         bool DeleteCustomer(int customerId);
