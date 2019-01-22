@@ -21,6 +21,7 @@ namespace NetCoreWebAPIs.Customer.WebAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<NetCoreWebAPIs.Core.Models.Customer>> Get()
         {
+            var asdf = customerService.GetCustomers();
             return customerService.GetCustomers();
         }
 
