@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace NetCoreWebAPIs.Gateway
 {
-
     public static class JWTHelper
     {
         public static string Create(IConfiguration configuration, string userName)
@@ -30,5 +29,4 @@ namespace NetCoreWebAPIs.Gateway
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
-
 }
