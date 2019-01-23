@@ -18,12 +18,14 @@ namespace NetCoreWebAPIs.Weather.WebAPI.Controllers
                 new Core.Models.WeatherReport
                 {
                     ZipCode = zipCode,
-                    Temperature = 80
+                    Day = DateTime.Today,
+                    Temperature = 80M
                 },
                 new Core.Models.WeatherReport
                 {
                     ZipCode = zipCode,
-                    Temperature = 84
+                    Day = DateTime.Today.AddDays(1),
+                    Temperature = 36M
                 }
             };
         }

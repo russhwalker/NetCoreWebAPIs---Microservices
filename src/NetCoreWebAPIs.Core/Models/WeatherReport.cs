@@ -7,6 +7,7 @@ namespace NetCoreWebAPIs.Core.Models
     public class WeatherReport
     {
         public string ZipCode { get; set; }
-        public int Temperature { get; set; }
+        public DateTime Day { get; set; }
+        public decimal Temperature { get; set; }
     }
 }
