@@ -8,10 +8,14 @@ namespace NetCoreWebAPIs.Core
 {
     public class APICaller
     {
-        public async Task<T> PostAsync<T>(string apiUrl, object messageValue)
+        public async Task<T> PostAsync<T>(string apiUrl, object messageValue, string token = "")
         {
             using (var client = new HttpClient())
             {
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                }
                 var messageJSON = JsonConvert.SerializeObject(messageValue);
                 var content = new StringContent(messageJSON, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(apiUrl, content);

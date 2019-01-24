@@ -13,6 +13,7 @@ namespace NetCoreWebAPIs.App.Console
 
         private static void Main(string[] args)
         {
+            System.Console.WriteLine("~~~~~~~~~~~~~~~~~~~NetCoreWebAPIs.App.Console START");
             var builder = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
                .AddJsonFile("appsettings.json");
@@ -20,7 +21,9 @@ namespace NetCoreWebAPIs.App.Console
 
             var caller = new Core.APICaller();
 
-            var weatherForecasts = caller.GetAsync<IEnumerable<Core.Models.WeatherReport>>(CreateGatewayUrl("Weather")).Result;
+            System.Console.WriteLine("--------Weather--------");
+            var forecasts = caller.GetAsync<IEnumerable<Core.Models.WeatherReport>>($"{CreateGatewayUrl("Weather")}/29201").Result;
+            System.Console.WriteLine(JsonConvert.SerializeObject(forecasts));
 
             var authRequest = new Core.Requests.AuthRequest
             {
@@ -40,9 +43,13 @@ namespace NetCoreWebAPIs.App.Console
             System.Console.WriteLine($"Valid: {jwtToken.ValidFrom} -- {jwtToken.ValidTo}");
 
             System.Console.WriteLine("--------Customer--------");
-            var addCust = caller.PostAsync<Core.Models.Customer>(CreateGatewayUrl("Customer"), new Core.Models.Customer { CustomerName = "John Doe" }).Result;
+            _ = caller.PostAsync<Core.Models.Customer>(CreateGatewayUrl("Customer"), new Core.Models.Customer { CustomerName = "John Doe" }, authResponse.TokenContent).Result;
+            _ = caller.PostAsync<Core.Models.Customer>(CreateGatewayUrl("Customer"), new Core.Models.Customer { CustomerName = "Jane Doe" }, authResponse.TokenContent).Result;
+            _ = caller.PostAsync<Core.Models.Customer>(CreateGatewayUrl("Customer"), new Core.Models.Customer { CustomerName = "Timmy Doe" }, authResponse.TokenContent).Result;
             var customers = caller.GetAsync<IEnumerable<Core.Models.Customer>>(CreateGatewayUrl("Customer"), authResponse.TokenContent).Result;
             System.Console.WriteLine(JsonConvert.SerializeObject(customers));
+            System.Console.WriteLine("~~~~~~~~~~~~~~~~~~~NetCoreWebAPIs.App.Console END");
+            System.Console.ReadKey();
         }
 
         private static string CreateGatewayUrl(string relativeUrl)
