@@ -25,6 +25,12 @@ namespace NetCoreWebAPIs.Weather.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddAuthentication(cfg =>
+            //{
+            //    cfg.DefaultAuthenticateScheme = "Basic";
+            //    cfg.DefaultChallengeScheme = "Basic";
+            //}).
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -40,6 +46,7 @@ namespace NetCoreWebAPIs.Weather.WebAPI
                 app.UseHsts();
             }
 
+            //app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

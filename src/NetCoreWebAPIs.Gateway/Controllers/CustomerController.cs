@@ -33,7 +33,7 @@ namespace NetCoreWebAPIs.Gateway.Controllers
         public Core.Models.Customer GetDetails(int id)
         {
             var customerTask = caller.GetAsync<Core.Models.Customer>($"{configuration["ApiUrls:Customer"]}/{id}");
-            var ordersTask = caller.GetAsync<IEnumerable<Core.Models.Order>>($"{configuration["ApiUrls:Orders"]}/{id}");
+            var ordersTask = caller.GetAsync<IEnumerable<Core.Models.Order>>($"{configuration["ApiUrls:Order"]}/{id}");
             Task.WaitAll(new Task[] { customerTask, ordersTask });
             var customer = customerTask.Result;
             customer.Orders = ordersTask.Result.ToList();
