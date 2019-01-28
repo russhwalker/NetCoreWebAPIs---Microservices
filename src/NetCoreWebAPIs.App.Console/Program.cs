@@ -48,6 +48,9 @@ namespace NetCoreWebAPIs.App.Console
             _ = caller.PostAsync<Core.Models.Customer>(CreateGatewayUrl("Customer"), new Core.Models.Customer { CustomerName = "Timmy Doe" }, authResponse.TokenContent).Result;
             var customers = caller.GetAsync<IEnumerable<Core.Models.Customer>>(CreateGatewayUrl("Customer"), authResponse.TokenContent).Result;
             System.Console.WriteLine(JsonConvert.SerializeObject(customers));
+
+            System.Console.WriteLine("--------Customer--------");
+
             System.Console.WriteLine("~~~~~~~~~~~~~~~~~~~NetCoreWebAPIs.App.Console END");
             System.Console.ReadKey();
         }

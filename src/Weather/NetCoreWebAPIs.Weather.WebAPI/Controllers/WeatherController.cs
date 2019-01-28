@@ -19,13 +19,17 @@ namespace NetCoreWebAPIs.Weather.WebAPI.Controllers
                 {
                     ZipCode = zipCode,
                     Day = DateTime.Today,
-                    Temperature = 80M
+                    LowTemparature = 62M,
+                    HighTemparature = 79M,
+                    TemparatureScale = "F"
                 },
                 new Core.Models.WeatherReport
                 {
                     ZipCode = zipCode,
                     Day = DateTime.Today.AddDays(1),
-                    Temperature = 36M
+                    LowTemparature = 49M,
+                    HighTemparature = 57M,
+                    TemparatureScale = "F"
                 }
             };
         }
