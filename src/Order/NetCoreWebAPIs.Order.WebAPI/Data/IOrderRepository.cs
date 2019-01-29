@@ -8,5 +8,7 @@ namespace NetCoreWebAPIs.Order.WebAPI.Data
 {
     public interface IOrderRepository
     {
+        List<Core.Models.Order> GetOrders(int customerId);
+        void InsertOrder(Core.Models.Order order);
     }
 }

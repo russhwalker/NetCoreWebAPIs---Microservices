@@ -64,28 +64,13 @@ namespace NetCoreWebAPIs.Order.WebAPI
                 conn.Close();
             }
 
-            const string initialSeedSQL = "INSERT INTO CustomerOrder(CustomerId, TotalPrice, OrderDate) VALUES(1, 3, '2016-01-01 10:20:05.123')";
+            const string initialSeedSQL = "INSERT INTO CustomerOrder(CustomerId, TotalPrice, OrderDate) VALUES(@id, 3, '2016-01-01 10:20:05.123')";
             using (var conn = new SqliteConnection(connString))
             using (var c = new SqliteCommand(initialSeedSQL, conn))
             {
+                c.Parameters.AddWithValue("@id", 33);
                 conn.Open();
                 c.ExecuteNonQuery();
-                conn.Close();
-            }
-
-            const string selectSQL = "SELECT * FROM CustomerOrder";
-            using (var conn = new SqliteConnection(connString))
-            using (var c = new SqliteCommand(selectSQL, conn))
-            {
-                conn.Open();
-                var reader = c.ExecuteReader();
-                while(reader.Read())
-                {
-                    var a = reader["OrderId"];
-                    var b = reader["CustomerId"];
-                    var cc = reader["TotalPrice"];
-                    var date = reader["OrderDate"];
-                }
                 conn.Close();
             }
         }
