@@ -25,12 +25,14 @@ namespace NetCoreWebAPIs.App.Console
             var forecasts = caller.GetAsync<IEnumerable<Core.Models.WeatherReport>>($"{CreateGatewayUrl("Weather")}/29201").Result;
             System.Console.WriteLine(JsonConvert.SerializeObject(forecasts));
 
+            System.Console.WriteLine("--------Authentication--------");
             var authRequest = new Core.Requests.AuthRequest
             {
                 UserName = "DoeJohn1",
-                Password = "abc123"
+                Password = "johnny1#"
             };
             var authResponse = caller.PostAsync<Core.Responses.AuthResponse>(CreateGatewayUrl("Auth"), authRequest).Result;
+            System.Console.WriteLine(JsonConvert.SerializeObject(authResponse));
 
             if (!authResponse.Authenticated)
             {
@@ -49,7 +51,9 @@ namespace NetCoreWebAPIs.App.Console
             var customers = caller.GetAsync<IEnumerable<Core.Models.Customer>>(CreateGatewayUrl("Customer"), authResponse.TokenContent).Result;
             System.Console.WriteLine(JsonConvert.SerializeObject(customers));
 
-            System.Console.WriteLine("--------Customer--------");
+            System.Console.WriteLine("--------Order--------");
+            var orders = caller.GetAsync<IEnumerable<Core.Models.Order>>($"{CreateGatewayUrl("Order")}/33", authResponse.TokenContent).Result;
+            System.Console.WriteLine(JsonConvert.SerializeObject(orders));
 
             System.Console.WriteLine("~~~~~~~~~~~~~~~~~~~NetCoreWebAPIs.App.Console END");
             System.Console.ReadKey();
