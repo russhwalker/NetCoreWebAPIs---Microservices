@@ -23,20 +23,15 @@ namespace NetCoreWebAPIs.Order.WebAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<Data.IOrderRepository, Data.OrderRepository>();
 
-            //TODOordercontext
-            //services.AddDbContext<Data.OrderContext>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            InitiallySetupDatabase();
+            //InitiallySetupDatabase();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -54,8 +49,8 @@ namespace NetCoreWebAPIs.Order.WebAPI
 
         private void InitiallySetupDatabase()
         {
-            const string connString = "Data Source=orderdatabase.sqlite;";
-            const string sql = "DROP TABLE CustomerOrder; CREATE TABLE CustomerOrder(OrderId INTEGER PRIMARY KEY ASC NOT NULL, CustomerId INTEGER NOT NULL, TotalPrice REAL NOT NULL, OrderDate TEXT NOT NULL);";
+            var connString = Configuration.GetConnectionString("OrderConnection");
+            const string sql = "CREATE TABLE CustomerOrder(OrderId INTEGER PRIMARY KEY ASC NOT NULL, CustomerId INTEGER NOT NULL, TotalPrice REAL NOT NULL, OrderDate TEXT NOT NULL);";
             using (var conn = new SqliteConnection(connString))
             using (var c = new SqliteCommand(sql, conn))
             {
