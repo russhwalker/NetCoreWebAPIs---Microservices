@@ -28,7 +28,14 @@ namespace NetCoreWebAPIs.Order.WebAPI.Controllers
         [HttpPost]
         public ActionResult<Core.Models.Order> Post([FromBody]Core.Models.Order order)
         {
-            orderRepository.InsertOrder(order);
+            if (order.OrderId == 0)
+            {
+                orderRepository.InsertOrder(order);
+            }
+            else
+            {
+                orderRepository.UpdateOrder(order);
+            }
             return order;
         }
     }

@@ -30,7 +30,7 @@ namespace NetCoreWebAPIs.Order.WebAPI.Data
                     {
                         OrderId = int.Parse(reader["OrderId"].ToString()),
                         CustomerId = int.Parse(reader["CustomerId"].ToString()),
-                        TotalPrice = int.Parse(reader["TotalPrice"].ToString()),
+                        TotalPrice = decimal.Parse(reader["TotalPrice"].ToString()),
                         OrderDate = DateTime.Parse(reader["OrderDate"].ToString())
                     });
                 }
@@ -48,6 +48,22 @@ namespace NetCoreWebAPIs.Order.WebAPI.Data
                 command.Parameters.AddWithValue("@customerid", order.CustomerId);
                 command.Parameters.AddWithValue("@totalprice", order.TotalPrice);
                 command.Parameters.AddWithValue("@orderdate", order.OrderDate);
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
+
+        public void UpdateOrder(Core.Models.Order order)
+        {
+            const string initialSeedSQL = "UPDATE CustomerOrder SET CustomerId = @customerid, TotalPrice = @totalprice, OrderDate = @orderdate WHERE OrderId = @orderid";
+            using (var connection = new SqliteConnection(connectionString))
+            using (var command = new SqliteCommand(initialSeedSQL, connection))
+            {
+                command.Parameters.AddWithValue("@customerid", order.CustomerId);
+                command.Parameters.AddWithValue("@totalprice", order.TotalPrice);
+                command.Parameters.AddWithValue("@orderdate", order.OrderDate);
+                command.Parameters.AddWithValue("@orderid", order.OrderId);
                 connection.Open();
                 command.ExecuteNonQuery();
                 connection.Close();

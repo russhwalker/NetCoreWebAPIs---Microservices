@@ -52,7 +52,8 @@ namespace NetCoreWebAPIs.App.Console
             System.Console.WriteLine(JsonConvert.SerializeObject(customers));
 
             System.Console.WriteLine("--------Order--------");
-            var orders = caller.GetAsync<IEnumerable<Core.Models.Order>>($"{CreateGatewayUrl("Order")}/33", authResponse.TokenContent).Result;
+            _ = caller.PostAsync<Core.Models.Order>(CreateGatewayUrl("Order"), new Core.Models.Order { CustomerId = 17, TotalPrice = 21.95M, OrderDate = DateTime.Now }, authResponse.TokenContent).Result;
+            var orders = caller.GetAsync<IEnumerable<Core.Models.Order>>($"{CreateGatewayUrl("Order")}/17", authResponse.TokenContent).Result;
             System.Console.WriteLine(JsonConvert.SerializeObject(orders));
 
             System.Console.WriteLine("~~~~~~~~~~~~~~~~~~~NetCoreWebAPIs.App.Console END");
