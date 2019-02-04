@@ -10,7 +10,7 @@ namespace NetCoreWebAPIs.Gateway.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CustomerController : ControllerBase
     {
         private readonly IConfiguration configuration;
@@ -22,6 +22,7 @@ namespace NetCoreWebAPIs.Gateway.Controllers
             caller = new Core.APICaller();
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<Core.Models.Customer> Get()
         {

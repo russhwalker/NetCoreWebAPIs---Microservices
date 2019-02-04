@@ -26,12 +26,24 @@ export class Customers extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { customers: [], loading: true };
+        this.state = {
+            customers: [],
+            loading: true
+        };
 
-        fetch('api/SampleData/WeatherForecasts')
+        //https://localhost:44360/api/customer
+        fetch('https://localhost:44359/api/Customer', {
+            'mode': 'no-cors'
+        })
             .then(response => response.json())
             .then(data => {
-                this.setState({ customers: data, loading: false });
+                this.setState({
+                    customers: data,
+                    loading: false
+                });
+            })
+            .catch(err => {
+                alert('fail');
             });
     }
 
