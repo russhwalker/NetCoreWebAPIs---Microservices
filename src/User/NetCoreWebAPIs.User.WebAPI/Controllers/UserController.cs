@@ -11,11 +11,12 @@ namespace NetCoreWebAPIs.User.WebAPI.Controllers
     public class UserController : ControllerBase
     {
         [HttpPost]
-        public Core.Responses.AuthResponse Post([FromBody] Core.Requests.AuthRequest request)
+        public Core.Responses.VerifyUserResponse Post([FromBody] Core.Requests.AuthRequest request)
         {
-            //TODO user auth
-            return new Core.Responses.AuthResponse
+            return new Core.Responses.VerifyUserResponse
             {
+                UserName = request.UserName,
+                UserFullName = "John Doe",
                 Authenticated = true
             };
         }

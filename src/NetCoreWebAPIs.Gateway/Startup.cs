@@ -45,6 +45,8 @@ namespace NetCoreWebAPIs.Gateway
                 };
             });
 
+            services.AddCors();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -58,6 +60,15 @@ namespace NetCoreWebAPIs.Gateway
             {
                 app.UseHsts();
             }
+
+            app.UseCors(
+                options => options
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowAnyOrigin()
+                .AllowCredentials()
+            );
+
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();

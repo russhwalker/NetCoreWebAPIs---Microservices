@@ -30,14 +30,13 @@ namespace NetCoreWebAPIs.Gateway.Controllers
         [AllowAnonymous]
         public async Task<AuthResponse> Post([FromBody]AuthRequest authRequest)
         {
-            var response = await new Core.APICaller().PostAsync<AuthResponse>(configuration["ApiUrls:User"], authRequest);
-
-            if (!response.Authenticated)
+            var response = new AuthResponse();
+            var verifyUserResponse = await new Core.APICaller().PostAsync<VerifyUserResponse>(configuration["ApiUrls:User"], authRequest);
+            if (verifyUserResponse.Authenticated)
             {
-                return response;
+                response.Authenticated = true;
+                response.TokenContent = JWTHelper.Create(configuration, verifyUserResponse.UserName, verifyUserResponse.UserFullName);
             }
-
-            response.TokenContent = JWTHelper.Create(configuration, authRequest.UserName);
             return response;
         }
     }

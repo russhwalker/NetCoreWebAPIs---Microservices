@@ -10,11 +10,12 @@ namespace NetCoreWebAPIs.Gateway
 {
     public static class JWTHelper
     {
-        public static string Create(IConfiguration configuration, string userName)
+        public static string Create(IConfiguration configuration, string userName, string userFullName)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, userName)
+                new Claim(ClaimTypes.UserData, userName),
+                new Claim(ClaimTypes.Name, userFullName)
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
             var seconds = int.Parse(configuration["Tokens:ExpiresFutureSeconds"]);

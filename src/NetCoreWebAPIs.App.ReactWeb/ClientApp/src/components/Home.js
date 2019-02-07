@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Login from './Login';
+import Weather from './Weather';
 
 export class Home extends Component {
     displayName = Home.name
@@ -7,7 +8,8 @@ export class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: false
+            loggedIn: false,
+            jwtToken: ''
         };
     }
 
@@ -15,6 +17,7 @@ export class Home extends Component {
         return (
             <div>
                 <Login loggedIn={this.state.loggedIn} />
+                <Weather />
             </div>
         );
     }
