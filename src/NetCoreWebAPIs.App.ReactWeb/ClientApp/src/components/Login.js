@@ -3,40 +3,13 @@ import './Login.css';
 
 export default class Login extends Component {
 
-    static renderStatus(isLoggedIn, jwtToken) {
-        if (isLoggedIn) {
-            return (
-                <div className="col-md-12">
-                    <label className="control-label col-md-2">Logged In:</label>
-                    <div className="col-md-2">
-                        YES
-                    </div>
-                    <label className="control-label col-md-2">Token:</label>
-                    <div className="col-md-5 jwt-view">
-                        {JSON.stringify(jwtToken)}
-                    </div>
-                </div>
-            );
-        }
-        else {
-            return (
-                <div className="col-md-12">
-                    <label className="control-label col-md-2">Logged In:</label>
-                    <div className="col-md-2">
-                        NO
-                     </div>
-                </div>
-            );
-        }
-    }
-
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: props.loggedIn,
+            authenticated: false,
+            tokenContent: '',
             userName: '',
-            password: '',
-            jwtToken: {}
+            password: ''
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -73,42 +46,43 @@ export default class Login extends Component {
         })
             .then(response => response.json())
             .then(response => {
-                var base64Url = response.tokenContent.split('.')[1];
-                var base64 = base64Url.replace('-', '+').replace('_', '/');
                 this.setState({
-                    loggedIn: response.authenticated,
-                    jwtToken: JSON.parse(window.atob(base64))
+                    authenticated: response.authenticated,
+                    tokenContent: response.tokenContent
                 });
+                if (response.authenticated === true) {
+                    this.props.onHandleLogin(response.tokenContent);
+                }
             }).catch((err) => {
                 this.setState({
-                    loggedIn: false
+                    authenticated: false
                 });
                 alert('ERROR:' + err.message);
             });
-
         event.preventDefault();
     }
 
     handleLogout(event) {
         this.setState({
-            loggedIn: false,
+            authenticated: false,
             userName: '',
             password: '',
-            jwtToken: {}
+            tokenContent: ''
         });
+        this.props.onHandleLogout();
         event.preventDefault();
     }
 
     render() {
 
-        if (this.state.loggedIn === true) {
+        if (this.state.authenticated === true) {
             return (
                 <div className="col-md-12">
                     <div className="well well-sm">
                         <div className="col-md-12">
-                            <label className="control-label col-md-2">Token:</label>
+                            <label className="control-label col-md-2">Login:</label>
                             <div className="col-md-10 jwt-view">
-                                {JSON.stringify(this.state.jwtToken)}
+                                {this.state.tokenContent}
                             </div>
                         </div>
                         <div className="row">

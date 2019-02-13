@@ -8,15 +8,34 @@ export class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: false,
-            jwtToken: ''
+            authenticated: false,
+            tokenContent: 'not-yet-set'
         };
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogin(tokenContent) {
+        //var base64Url = tokenContent.split('.')[1];
+        //var base64 = base64Url.replace('-', '+').replace('_', '/');
+        this.setState({
+            authenticated: true,
+            tokenContent: tokenContent
+        });
+    }
+
+    handleLogout() {
+        this.setState({
+            authenticated: false,
+            tokenContent: ''
+        });
     }
 
     render() {
         return (
             <div>
-                <Login loggedIn={this.state.loggedIn} />
+                <div>TC: {this.state.tokenContent}</div>
+                <Login onHandleLogin={this.handleLogin} onHandleLogout={this.handleLogout} />
                 <Weather />
             </div>
         );
