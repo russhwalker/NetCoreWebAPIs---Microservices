@@ -79,14 +79,16 @@ export default class Login extends Component {
             return (
                 <div className="col-md-12">
                     <div className="well well-sm">
-                        <div className="col-md-12">
-                            <label className="control-label col-md-2">Login:</label>
-                            <div className="col-md-10 jwt-view">
-                                {this.state.tokenContent}
-                            </div>
-                        </div>
                         <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-3">
+                                <div className="col-md-5">
+                                    <strong>UserName:</strong>
+                                </div>
+                                <div className="col-md-7">
+                                    {this.state.userName}
+                                </div>
+                            </div>
+                            <div className="col-md-3">
                                 <button className="btn btn-sm btn-danger" type="button" onClick={this.handleLogout}>Logout</button>
                             </div>
                         </div>
@@ -99,13 +101,13 @@ export default class Login extends Component {
                 <div className="well well-sm">
                     <div className="row">
                         <form onSubmit={this.handleSubmit}>
-                            <div className="col-md-5">
+                            <div className="col-md-3">
                                 <label className="control-label col-md-5">UserName:</label>
                                 <div className="col-md-7">
                                     <input className="form-control" name="userName" value={this.state.userName} onChange={this.handleInputChange} />
                                 </div>
                             </div>
-                            <div className="col-md-5">
+                            <div className="col-md-3">
                                 <label className="control-label col-md-5">Password:</label>
                                 <div className="col-md-7">
                                     <input className="form-control" type="password" name="password" value={this.state.password} onChange={this.handleInputChange} />

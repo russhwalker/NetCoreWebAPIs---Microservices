@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from './Login';
 import Weather from './Weather';
+import { Customers } from './Customers';
 
 export class Home extends Component {
     displayName = Home.name
@@ -34,9 +35,9 @@ export class Home extends Component {
     render() {
         return (
             <div>
-                <div>TC: {this.state.tokenContent}</div>
-                <Login onHandleLogin={this.handleLogin} onHandleLogout={this.handleLogout} />
                 <Weather />
+                <Login onHandleLogin={this.handleLogin} onHandleLogout={this.handleLogout} />
+                <Customers authenticated={this.state.authenticated} />
             </div>
         );
     }

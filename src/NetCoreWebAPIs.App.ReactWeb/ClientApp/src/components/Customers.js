@@ -28,8 +28,15 @@ export class Customers extends Component {
         super(props);
         this.state = {
             customers: [],
-            loading: true
+            loading: false
         };
+    }
+
+    loadCustomers() {
+        this.setState({
+            customers: [],
+            loading: false
+        });
 
         //https://localhost:44360/api/customer
         fetch('https://localhost:44359/api/Customer', {
@@ -52,11 +59,33 @@ export class Customers extends Component {
             ? <p><em>Loading...</em></p>
             : Customers.renderTable(this.state.customers);
 
-        return (
-            <div>
-                <h1>Customers</h1>
-                {contents}
-            </div>
-        );
+        if (this.props.authenticated) {
+            return (
+                <div className="col-md-12">
+                    <div className="well well-sm">
+                        <div className="row">
+                            <label className="control-label col-md-2">Customers</label>
+                            <div className="col-md-10">
+                                Authenticated !!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div className="col-md-12">
+                    <div className="well well-sm">
+                        <div className="row">
+                            <label className="control-label col-md-2">Customers</label>
+                            <div className="col-md-10">
+                                Not Authenticated
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 }
