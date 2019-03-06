@@ -22,7 +22,7 @@ namespace NetCoreWebAPIs.App.Console
             var caller = new Core.APICaller();
 
             System.Console.WriteLine("--------Weather--------");
-            var forecasts = caller.GetAsync<IEnumerable<Core.Models.WeatherReport>>($"{CreateGatewayUrl("Weather")}/29201").Result;
+            var forecasts = caller.GetAsync<IEnumerable<Core.Models.WeatherForecast>>($"{CreateGatewayUrl("Weather")}/29201").Result;
             System.Console.WriteLine(JsonConvert.SerializeObject(forecasts));
 
             System.Console.WriteLine("--------Authentication--------");

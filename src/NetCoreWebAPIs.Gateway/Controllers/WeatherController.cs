@@ -24,10 +24,10 @@ namespace NetCoreWebAPIs.Gateway.Controllers
         [HttpGet]
         [Route("{zipCode}")]
         [AllowAnonymous]
-        public IEnumerable<Core.Models.WeatherReport> Get(string zipCode)
+        public IEnumerable<Core.Models.WeatherForecast> Get(string zipCode)
         {
-            var weatherReports = caller.GetAsync<IEnumerable<Core.Models.WeatherReport>>($"{configuration["ApiUrls:Weather"]}/{zipCode}");
-            return weatherReports.Result;
+            var forecassts = caller.GetAsync<IEnumerable<Core.Models.WeatherForecast>>($"{configuration["ApiUrls:Weather"]}/{zipCode}");
+            return forecassts.Result;
         }
     }
 }

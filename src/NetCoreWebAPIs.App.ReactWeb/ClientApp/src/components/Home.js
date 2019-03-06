@@ -37,7 +37,7 @@ export class Home extends Component {
             <div>
                 <Weather />
                 <Login onHandleLogin={this.handleLogin} onHandleLogout={this.handleLogout} />
-                <Customers authenticated={this.state.authenticated} />
+                <Customers tokenContent={this.state.tokenContent} authenticated={this.state.authenticated} />
             </div>
         );
     }

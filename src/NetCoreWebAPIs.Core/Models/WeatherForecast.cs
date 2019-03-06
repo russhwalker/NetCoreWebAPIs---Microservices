@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NetCoreWebAPIs.Core.Models
 {
-    public class WeatherReport
+    public class WeatherForecast
     {
         public string ZipCode { get; set; }
         public DateTime Day { get; set; }

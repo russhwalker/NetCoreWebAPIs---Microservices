@@ -11,24 +11,40 @@ namespace NetCoreWebAPIs.Weather.WebAPI.Controllers
     public class WeatherController : ControllerBase
     {
         [HttpGet("{zipCode}")]
-        public IEnumerable<Core.Models.WeatherReport> Get(string zipCode)
+        public IEnumerable<Core.Models.WeatherForecast> Get(string zipCode)
         {
-            return new List<Core.Models.WeatherReport>
+            return new List<Core.Models.WeatherForecast>
             {
-                new Core.Models.WeatherReport
+                new Core.Models.WeatherForecast
                 {
                     ZipCode = zipCode,
                     Day = DateTime.Today,
-                    LowTemparature = 62M,
-                    HighTemparature = 79M,
+                    LowTemparature = 50M,
+                    HighTemparature = 70M,
                     TemparatureScale = "F"
                 },
-                new Core.Models.WeatherReport
+                new Core.Models.WeatherForecast
                 {
                     ZipCode = zipCode,
                     Day = DateTime.Today.AddDays(1),
                     LowTemparature = 49M,
                     HighTemparature = 57M,
+                    TemparatureScale = "F"
+                },
+                new Core.Models.WeatherForecast
+                {
+                    ZipCode = zipCode,
+                    Day = DateTime.Today.AddDays(2),
+                    LowTemparature = 35M,
+                    HighTemparature = 57M,
+                    TemparatureScale = "F"
+                },
+                new Core.Models.WeatherForecast
+                {
+                    ZipCode = zipCode,
+                    Day = DateTime.Today.AddDays(3),
+                    LowTemparature = 45M,
+                    HighTemparature = 68M,
                     TemparatureScale = "F"
                 }
             };

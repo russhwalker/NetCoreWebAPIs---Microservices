@@ -28,19 +28,25 @@ export class Customers extends Component {
         super(props);
         this.state = {
             customers: [],
-            loading: false
+            loading: true
         };
+        this.loadCustomers = this.loadCustomers.bind(this);
     }
 
     loadCustomers() {
         this.setState({
             customers: [],
-            loading: false
+            loading: true
         });
 
-        //https://localhost:44360/api/customer
-        fetch('https://localhost:44359/api/Customer', {
-            'mode': 'no-cors'
+        fetch('https://localhost:44360/api/Customer/', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.props.tokenContent}`
+            }
         })
             .then(response => response.json())
             .then(data => {
@@ -55,8 +61,8 @@ export class Customers extends Component {
     }
 
     render() {
-        let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
+        let customerTableContents = this.state.loading
+            ? <div></div>
             : Customers.renderTable(this.state.customers);
 
         if (this.props.authenticated) {
@@ -65,8 +71,11 @@ export class Customers extends Component {
                     <div className="well well-sm">
                         <div className="row">
                             <label className="control-label col-md-2">Customers</label>
-                            <div className="col-md-10">
-                                Authenticated !!
+                            <div className="col-md-2">
+                                <button type="button" className="btn btn-info" onClick={this.loadCustomers}>Load</button>
+                            </div>
+                            <div className="col-md-8">
+                                {customerTableContents}
                             </div>
                         </div>
                     </div>
