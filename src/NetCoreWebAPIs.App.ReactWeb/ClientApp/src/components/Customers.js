@@ -1,27 +1,9 @@
 import React, { Component } from 'react';
 import Customer from './Customer';
+import { Orders } from './Orders';
+import { CustomersTable } from './CustomersTable';
 
 export class Customers extends Component {
-    static renderTable(customers) {
-        return (
-            <table className='table'>
-                <thead>
-                    <tr>
-                        <th>CustomerId</th>
-                        <th>CustomerName</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {customers.map(cust =>
-                        (<tr key={cust.customerId}>
-                            <td>{cust.customerId}</td>
-                            <td>{cust.customerName}</td>
-                        </tr>)
-                    )}
-                </tbody>
-            </table>
-        );
-    }
 
     displayName = Customers.name
 
@@ -29,9 +11,11 @@ export class Customers extends Component {
         super(props);
         this.state = {
             customers: [],
+            selectedCustomer: {},
             loading: true
         };
         this.loadCustomers = this.loadCustomers.bind(this);
+        this.addCustomer = this.addCustomer.bind(this);
     }
 
     loadCustomers() {
@@ -61,11 +45,23 @@ export class Customers extends Component {
             });
     }
 
-    render() {
-        let customerTableContents = this.state.loading
-            ? <div></div>
-            : Customers.renderTable(this.state.customers);
+    addCustomer(customer) {
+        let customers = this.state.customers;
+        customers.push(customer);
+        this.setState({
+            customers: customers
+        });
+    }
 
+    addCustomer(customer) {
+        let customers = this.state.customers;
+        customers.push(customer);
+        this.setState({
+            customers: customers
+        });
+    }
+
+    render() {
         if (this.props.authenticated) {
             return (
                 <div className="col-md-12">
@@ -79,11 +75,14 @@ export class Customers extends Component {
                                     </div>
                                 </div>
                                 <hr />
-                                <Customer tokenContent={this.state.tokenContent} loadCustomers={this.loadCustomers} />
+                                <Customer tokenContent={this.state.tokenContent} loadCustomers={this.loadCustomers} addCustomer={this.addCustomer} />
                             </div>
                             <div className="col-md-6">
-                                {customerTableContents}
+                                <CustomersTable loading={this.state.loading} customers={this.state.customers} />
                             </div>
+                        </div>
+                        <div className="row">
+                            <Orders customer={this.state.selectedCustomer} />
                         </div>
                     </div>
                 </div>

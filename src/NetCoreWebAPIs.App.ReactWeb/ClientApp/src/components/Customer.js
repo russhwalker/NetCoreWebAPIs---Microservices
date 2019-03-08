@@ -48,7 +48,7 @@ export default class Customer extends Component {
                     customerId: 0,
                     customerName: ''
                 });
-                this.props.loadCustomers();
+                this.props.addCustomer(response);
             }).catch((err) => {
                 alert('ERROR:' + err.message);
             });

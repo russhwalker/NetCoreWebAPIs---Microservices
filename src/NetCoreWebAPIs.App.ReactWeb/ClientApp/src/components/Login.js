@@ -80,16 +80,16 @@ export default class Login extends Component {
                 <div className="col-md-12">
                     <div className="well well-sm">
                         <div className="row">
-                            <div className="col-md-3">
-                                <div className="col-md-5">
+                            <div className="col-md-2">
+                                <button className="btn btn-sm btn-danger" type="button" onClick={this.handleLogout}>Logout</button>
+                            </div>
+                            <div className="col-md-10">
+                                <div className="col-md-3">
                                     <strong>UserName:</strong>
                                 </div>
-                                <div className="col-md-7">
+                                <div className="col-md-8">
                                     {this.state.userName}
                                 </div>
-                            </div>
-                            <div className="col-md-3">
-                                <button className="btn btn-sm btn-danger" type="button" onClick={this.handleLogout}>Logout</button>
                             </div>
                         </div>
                     </div>
