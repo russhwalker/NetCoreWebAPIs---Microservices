@@ -75,7 +75,7 @@ export class Customers extends Component {
                                     </div>
                                 </div>
                                 <hr />
-                                <Customer tokenContent={this.state.tokenContent} loadCustomers={this.loadCustomers} addCustomer={this.addCustomer} />
+                                <Customer tokenContent={this.props.tokenContent} loadCustomers={this.loadCustomers} addCustomer={this.addCustomer} />
                             </div>
                             <div className="col-md-6">
                                 <CustomersTable loading={this.state.loading} customers={this.state.customers} />
