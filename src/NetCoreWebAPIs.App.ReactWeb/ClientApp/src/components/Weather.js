@@ -50,8 +50,10 @@ export default class Weather extends Component {
     }
 
     handleSubmit(event) {
-
-        fetch('https://localhost:44360/api/Weather/' + this.state.zipCode, {
+        const url = document.getElementById('baseGatewayUrl').value
+            + "/api/Weather/"
+            + this.state.zipCode;
+        fetch(url, {
             method: 'GET',
             mode: 'cors'
         })

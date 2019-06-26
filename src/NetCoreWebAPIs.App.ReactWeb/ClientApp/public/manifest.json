@@ -1,6 +1,6 @@
 {
-  "short_name": "NetCoreWebAPIs.App.ReactWeb",
-  "name": "NetCoreWebAPIs.App.ReactWeb",
+  "short_name": "netcorewebapis-app-reactweb",
+  "name": "netcorewebapis-app-reactweb",
   "icons": [
     {
       "src": "favicon.ico",
