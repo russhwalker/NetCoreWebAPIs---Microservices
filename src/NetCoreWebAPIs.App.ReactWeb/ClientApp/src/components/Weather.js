@@ -38,6 +38,7 @@ export default class Weather extends Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.baseUrl = document.getElementById('baseGatewayUrl').value;
     }
 
     handleInputChange(event) {
@@ -50,9 +51,10 @@ export default class Weather extends Component {
     }
 
     handleSubmit(event) {
-        const url = document.getElementById('baseGatewayUrl').value
+        const url = this.baseUrl
             + "/api/Weather/"
             + this.state.zipCode;
+
         fetch(url, {
             method: 'GET',
             mode: 'cors'

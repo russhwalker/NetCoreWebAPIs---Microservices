@@ -10,6 +10,7 @@ export default class Customer extends Component {
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.baseUrl = document.getElementById('baseGatewayUrl').value;
     }
 
     handleInputChange(event) {
@@ -31,7 +32,10 @@ export default class Customer extends Component {
             customerName: this.state.customerName
         };
 
-        fetch('https://localhost:44360/api/Customer', {
+        const url = this.baseUrl
+            + "/api/Customer/";
+
+        fetch(url, {
             method: 'POST',
             mode: 'cors',
             headers: {

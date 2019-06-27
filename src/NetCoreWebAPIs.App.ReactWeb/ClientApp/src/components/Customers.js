@@ -16,6 +16,7 @@ export class Customers extends Component {
         };
         this.loadCustomers = this.loadCustomers.bind(this);
         this.addCustomer = this.addCustomer.bind(this);
+        this.baseUrl = document.getElementById('baseGatewayUrl').value;
     }
 
     loadCustomers() {
@@ -24,7 +25,10 @@ export class Customers extends Component {
             loading: true
         });
 
-        fetch('https://localhost:44360/api/Customer/', {
+        const url = this.baseUrl
+            + "/api/Customer/";
+
+        fetch(url, {
             method: 'GET',
             mode: 'cors',
             headers: {

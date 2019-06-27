@@ -14,6 +14,7 @@ export default class Login extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.baseUrl = document.getElementById('baseGatewayUrl').value;
     }
 
     handleInputChange(event) {
@@ -35,7 +36,10 @@ export default class Login extends Component {
             password: this.state.password
         };
 
-        fetch('https://localhost:44360/api/Auth', {
+        const url = this.baseUrl
+            + "/api/Auth/";
+
+        fetch(url, {
             method: 'POST',
             mode: 'cors',
             headers: {
